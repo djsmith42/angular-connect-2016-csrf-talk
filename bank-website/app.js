@@ -35,7 +35,7 @@ app.post('/money/transfer', function(req, res) {
 app.get('/', function(req, res) {
   var output = '<h1>Welcome to Very Real Bank</h1>';
   if (req.session.username !== undefined) {
-    output += 'You are logged in as "' + req.session.username + '"<br/><br/>';
+    output += 'You are logged in as <b>' + req.session.username + '</b>. <a href="/logout">Log out</a>.<br/><br/>';
     output += '<h3>Transfer money:</h3>';
     output += '<form method="POST" action="/money/transfer">';
     output += '<input type="hidden" name="_csrf" value="' + (req.csrfToken ? req.csrfToken() : '')+ '"/>';
@@ -54,11 +54,16 @@ app.get('/login', function(req, res) {
   output  = '<h1>Please log in</h1>';
   output += '<form method="POST" action="/login">';
   output += '<input type="hidden" name="_csrf" value="' + (req.csrfToken ? req.csrfToken() : '')+ '"/>';
-  output += 'Username:<br/><input type="text" name="username"/><br/>';
+  output += 'Username:<br/><input type="text" autofocus name="username"/><br/>';
   output += 'Password:<br/><input type="password" name="password"><br/>';
   output += '<input type="submit" value="Log in" />';
   output += '</form>';
   res.send(output);
+});
+
+app.get('/logout', function(req, res) {
+  delete req.session.username;
+  res.redirect('/');
 });
 
 app.post('/login', function(req, res) {
